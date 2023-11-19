@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:stock_story_app/model/own_stock_model.dart';
+import 'package:stock_story_app/api/model/own_stock_model.dart';
 
 class OwnStockCardWidget extends StatelessWidget {
   final OwnStockModel ownStock;

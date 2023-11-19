@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stock_story_app/mock_api/stock_market_api.dart';
-import 'package:stock_story_app/mock_api/stock_story_api.dart';
-import 'package:stock_story_app/model/own_stock_model.dart';
-import 'package:stock_story_app/widget/own_stock_card_widget.dart';
+import 'package:stock_story_app/api/mock/stock_market_api.dart';
+import 'package:stock_story_app/api/mock/stock_story_api.dart';
+import 'package:stock_story_app/app/own_stock/widget/own_stock_card_widget.dart';
+import 'package:stock_story_app/app/own_stock/model/own_stock_and_market_price_model.dart';
 
 class OwnStockScreen extends StatelessWidget {
   const OwnStockScreen({super.key});
@@ -58,14 +58,4 @@ class OwnStockScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class OwnStockAndMarketPriceModel {
-  final OwnStockModel ownStockModel;
-  final int marketPrice;
-
-  OwnStockAndMarketPriceModel.fromOwnStockAndPrice(
-      OwnStockModel ownStock, int price)
-      : ownStockModel = ownStock,
-        marketPrice = price;
 }
