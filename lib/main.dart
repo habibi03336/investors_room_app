@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_story_app/navigation/botton_navigation.dart';
 
 void main() {
   runApp(const StockStoryApp());
@@ -10,11 +11,10 @@ class StockStoryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'StockStoryApp',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Text('StockStoryApp'),
-    );
+        title: 'StockStoryApp',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const BottomNavigation());
   }
 }
