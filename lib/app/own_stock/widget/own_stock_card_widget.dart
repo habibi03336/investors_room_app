@@ -23,9 +23,16 @@ class OwnStockCardWidget extends StatelessWidget {
         OwnStockCardWidget.calculateCardWidth(ownStock, stockMarketPrice) *
             lengthAdjustRatio;
 
+    int profit = (stockMarketPrice - ownStock.averagePurchasePrice) *
+        ownStock.stockCount;
+    int changeRate = ((stockMarketPrice - ownStock.averagePurchasePrice) /
+            ownStock.averagePurchasePrice *
+            100)
+        .toInt();
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.5),
+        color: profit < 0 ? Colors.blue[300] : Colors.red[300],
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           width: 2.0,
@@ -35,7 +42,50 @@ class OwnStockCardWidget extends StatelessWidget {
       child: SizedBox(
         height: height,
         width: width,
-        child: Text(ownStock.stockCode),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: height / 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      ownStock.stockName,
+                      style: TextStyle(
+                          fontSize: width / 10, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      ownStock.stockCode,
+                      style: TextStyle(
+                          fontSize: width / 20, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height / 3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('${profit > 0 ? '+' : ''}$changeRate%',
+                            style: TextStyle(fontSize: width / 6)),
+                        Text('(${profit > 0 ? '+' : ''}$profit원)',
+                            style: TextStyle(fontSize: width / 20))
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
