@@ -18,9 +18,8 @@ class OwnStockScreen extends StatelessWidget {
                   ownStock.stockCode)));
     }
     ownStocksWithMarketPrices.sort((a, b) =>
-        (OwnStockCardWidget.calculateCardSize(b.ownStockModel, b.marketPrice) -
-                OwnStockCardWidget.calculateCardSize(
-                    a.ownStockModel, a.marketPrice))
+        (OwnStockCardWidget.calculateCardSize(b) -
+                OwnStockCardWidget.calculateCardSize(a))
             .toInt());
     return ownStocksWithMarketPrices;
   }
@@ -40,9 +39,7 @@ class OwnStockScreen extends StatelessWidget {
               if (snapshot.hasData) {
                 return LayoutBuilder(builder: (ctx, contraints) {
                   double lengthAdjustRatio = (contraints.maxWidth - 2) /
-                      OwnStockCardWidget.calculateCardWidth(
-                          snapshot.data![0].ownStockModel,
-                          snapshot.data![0].marketPrice);
+                      OwnStockCardWidget.calculateCardWidth(snapshot.data![0]);
                   return Wrap(
                     direction: Axis.horizontal,
                     children: [
@@ -51,8 +48,7 @@ class OwnStockScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
                           child: OwnStockCardWidget(
-                            ownStock: ownStockAndPrice.ownStockModel,
-                            stockMarketPrice: ownStockAndPrice.marketPrice,
+                            ownStockAndPrice: ownStockAndPrice,
                             lengthAdjustRatio: lengthAdjustRatio,
                           ),
                         )

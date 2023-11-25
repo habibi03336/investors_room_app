@@ -1,32 +1,32 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:stock_story_app/api/model/own_stock_model.dart';
+import 'package:stock_story_app/app/own_stock/model/own_stock_and_market_price_model.dart';
 
 class OwnStockCardWidget extends StatelessWidget {
-  final OwnStockModel ownStock;
-  final int stockMarketPrice;
+  final OwnStockAndMarketPriceModel ownStockAndPrice;
   final double lengthAdjustRatio;
 
   const OwnStockCardWidget(
       {super.key,
-      required this.ownStock,
-      required this.stockMarketPrice,
-      required this.lengthAdjustRatio});
+      required this.lengthAdjustRatio,
+      required this.ownStockAndPrice});
 
   @override
   Widget build(BuildContext context) {
     final double height =
-        OwnStockCardWidget.calculateCardHeight(ownStock, stockMarketPrice) *
+        OwnStockCardWidget.calculateCardHeight(ownStockAndPrice) *
             lengthAdjustRatio;
     final double width =
-        OwnStockCardWidget.calculateCardWidth(ownStock, stockMarketPrice) *
+        OwnStockCardWidget.calculateCardWidth(ownStockAndPrice) *
             lengthAdjustRatio;
 
-    int profit = (stockMarketPrice - ownStock.averagePurchasePrice) *
-        ownStock.stockCount;
-    int changeRate = ((stockMarketPrice - ownStock.averagePurchasePrice) /
-            ownStock.averagePurchasePrice *
+    int profit =
+        (ownStockAndPrice.marketPrice - ownStockAndPrice.averagePurchasePrice) *
+            ownStockAndPrice.stockCount;
+    int changeRate = ((ownStockAndPrice.marketPrice -
+                ownStockAndPrice.averagePurchasePrice) /
+            ownStockAndPrice.averagePurchasePrice *
             100)
         .toInt();
 
@@ -53,12 +53,12 @@ class OwnStockCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      ownStock.stockName,
+                      ownStockAndPrice.stockName,
                       style: TextStyle(
                           fontSize: width / 10, fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      ownStock.stockCode,
+                      ownStockAndPrice.stockCode,
                       style: TextStyle(
                           fontSize: width / 20, fontWeight: FontWeight.w400),
                     ),
@@ -91,26 +91,27 @@ class OwnStockCardWidget extends StatelessWidget {
   }
 
   static double calculateCardHeight(
-      OwnStockModel ownStock, int stockMarketPrice) {
-    final double cardSize = calculateCardSize(ownStock, stockMarketPrice);
-    final double parametricValue =
-        sqrt(cardSize / (stockMarketPrice * ownStock.averagePurchasePrice));
-    return stockMarketPrice * parametricValue;
+      OwnStockAndMarketPriceModel ownStockAndPrice) {
+    final double cardSize = calculateCardSize(ownStockAndPrice);
+    final double parametricValue = sqrt(cardSize /
+        (ownStockAndPrice.marketPrice * ownStockAndPrice.averagePurchasePrice));
+    return ownStockAndPrice.marketPrice * parametricValue;
   }
 
   static double calculateCardWidth(
-      OwnStockModel ownStock, int stockMarketPrice) {
-    double cardSize = calculateCardSize(ownStock, stockMarketPrice);
-    final double parametricValue =
-        sqrt(cardSize / (stockMarketPrice * ownStock.averagePurchasePrice));
-    return ownStock.averagePurchasePrice * parametricValue;
+      OwnStockAndMarketPriceModel ownStockAndPrice) {
+    double cardSize = calculateCardSize(ownStockAndPrice);
+    final double parametricValue = sqrt(cardSize /
+        (ownStockAndPrice.marketPrice * ownStockAndPrice.averagePurchasePrice));
+    return ownStockAndPrice.averagePurchasePrice * parametricValue;
   }
 
   static double calculateCardSize(
-      OwnStockModel ownStock, int stockMarketPrice) {
-    final double cardSize =
-        ((ownStock.averagePurchasePrice + stockMarketPrice) / 2) *
-            ownStock.stockCount;
+      OwnStockAndMarketPriceModel ownStockAndPrice) {
+    final double cardSize = ((ownStockAndPrice.averagePurchasePrice +
+                ownStockAndPrice.marketPrice) /
+            2) *
+        ownStockAndPrice.stockCount;
     return cardSize;
   }
 }
