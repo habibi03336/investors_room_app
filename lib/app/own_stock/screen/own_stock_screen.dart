@@ -32,24 +32,31 @@ class OwnStockScreen extends StatelessWidget {
         title: const Text('소유한 주식'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(3.0),
         child: FutureBuilder(
           future: integrateOwnStockAndPrice(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return LayoutBuilder(builder: (ctx, contraints) {
-                double lengthAdjustRatio = contraints.maxWidth /
+                double lengthAdjustRatio = (contraints.maxWidth - 2) /
                     OwnStockCardWidget.calculateCardWidth(
                         snapshot.data![0].ownStockModel,
                         snapshot.data![0].marketPrice);
-                return Wrap(direction: Axis.horizontal, children: [
-                  for (var ownStockAndPrice in snapshot.data!)
-                    OwnStockCardWidget(
-                      ownStock: ownStockAndPrice.ownStockModel,
-                      stockMarketPrice: ownStockAndPrice.marketPrice,
-                      lengthAdjustRatio: lengthAdjustRatio,
-                    )
-                ]);
+                return Wrap(
+                  direction: Axis.horizontal,
+                  children: [
+                    for (var ownStockAndPrice in snapshot.data!)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 1, vertical: 1),
+                        child: OwnStockCardWidget(
+                          ownStock: ownStockAndPrice.ownStockModel,
+                          stockMarketPrice: ownStockAndPrice.marketPrice,
+                          lengthAdjustRatio: lengthAdjustRatio,
+                        ),
+                      )
+                  ],
+                );
               });
             }
             return const Text('loading...');
