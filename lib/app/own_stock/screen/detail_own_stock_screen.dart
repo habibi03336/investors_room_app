@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_story_app/api/mock/stock_story_api.dart';
+import 'package:stock_story_app/app/own_stock/widget/stock_story_timeline_widget.dart';
 import '../model/own_stock_and_market_price_model.dart';
 
 class DetailOwnStockScreen extends StatelessWidget {
@@ -105,6 +107,19 @@ class DetailOwnStockScreen extends StatelessWidget {
                 )
               ],
             ),
+            Expanded(
+              child: FutureBuilder(
+                  future: StockStoryApi.getStockStoryOfCertainStock(
+                      ownStockAndPrice.stockCode),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return StockStoryTimelineWidget(
+                        stockStories: snapshot.data!,
+                      );
+                    }
+                    return const Text("loading...");
+                  }),
+            )
           ]),
         ));
   }
