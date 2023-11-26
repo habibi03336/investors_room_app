@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widget/price_select_pad_widget.dart';
+import 'package:stock_story_app/app/stock_story_post/screen/stock_story_post_price_screen.dart';
 
 class StockStoryPostScreen extends StatefulWidget {
   const StockStoryPostScreen({super.key});
@@ -11,7 +10,6 @@ class StockStoryPostScreen extends StatefulWidget {
 
 class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
   String stockCode = '';
-  List<int> stockPrices = [];
   DateTime positionDt = DateTime.now();
   bool isLong = true;
   String story = '';
@@ -26,28 +24,8 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: Column(
           children: [
-            Autocomplete<String>(
-              fieldViewBuilder: ((context, textEditingController, focusNode,
-                  onFieldSubmitted) {
-                return TextFormField(
-                  controller: textEditingController,
-                  focusNode: focusNode,
-                  onEditingComplete: onFieldSubmitted,
-                  decoration: const InputDecoration(hintText: '주식 검색'),
-                );
-              }),
-              optionsBuilder: (token) {
-                if (token.text == '') {
-                  return const Iterable<String>.empty();
-                }
-                return ['asdf', 'asdf'];
-              },
-              onSelected: (option) {
-                stockCode = option;
-              },
-            ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             LayoutBuilder(
               builder: (context, constraints) {
@@ -77,7 +55,7 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
               },
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             TextField(
               controller: TextEditingController(
@@ -103,49 +81,51 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
               },
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
-            ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height * 0.5),
-                    builder: (context) {
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.43,
-                            child: PriceSelectPadWidget(
-                              onPriceSelect: (price) {
-                                setState(() {
-                                  stockPrices.add(price);
-                                });
-                              },
-                              centerPrice: 5000,
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.07,
-                            width: MediaQuery.of(context).size.width,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('가격 선택 완료'),
-                            ),
-                          ),
-                        ],
-                      );
-                    });
+            Autocomplete<String>(
+              fieldViewBuilder: ((context, textEditingController, focusNode,
+                  onFieldSubmitted) {
+                return TextFormField(
+                  controller: textEditingController,
+                  focusNode: focusNode,
+                  onEditingComplete: onFieldSubmitted,
+                  decoration: const InputDecoration(hintText: '주식 검색'),
+                );
+              }),
+              optionsBuilder: (token) {
+                if (token.text == '') {
+                  return const Iterable<String>.empty();
+                }
+                return ['asdf', 'asdf'];
               },
-              child: Row(
-                children: const [
-                  Expanded(child: Center(child: Text('가격 등록'))),
-                ],
-              ),
-            )
+              onSelected: (option) {
+                stockCode = option;
+              },
+            ),
           ],
+        ),
+      ),
+      bottomSheet: Container(
+        height: 70,
+        decoration: const BoxDecoration(
+          color: Colors.black12,
+        ),
+        child: TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const StockStoryPostPriceScreen(),
+              ),
+            );
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text('다음'),
+            ],
+          ),
         ),
       ),
     );
