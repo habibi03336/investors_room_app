@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widget/price_select_pad_widget.dart';
+
 class StockStoryPostScreen extends StatefulWidget {
   const StockStoryPostScreen({super.key});
 
@@ -100,6 +102,49 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
                 }
               },
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * 0.5),
+                    builder: (context) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.43,
+                            child: PriceSelectPadWidget(
+                              onPriceSelect: (price) {
+                                setState(() {
+                                  stockPrices.add(price);
+                                });
+                              },
+                              centerPrice: 5000,
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('가격 선택 완료'),
+                            ),
+                          ),
+                        ],
+                      );
+                    });
+              },
+              child: Row(
+                children: const [
+                  Expanded(child: Center(child: Text('가격 등록'))),
+                ],
+              ),
+            )
           ],
         ),
       ),
