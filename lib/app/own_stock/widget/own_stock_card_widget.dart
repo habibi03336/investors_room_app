@@ -36,7 +36,6 @@ class OwnStockCardWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              fullscreenDialog: true,
               builder: (context) => DetailOwnStockScreen(
                 ownStockAndPrice: ownStockAndPrice,
               ),
