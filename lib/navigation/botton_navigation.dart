@@ -14,14 +14,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     OwnStockScreen(),
-    Text(
-      'Index 1: 기간별 손익',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: 실현 손익',
-      style: optionStyle,
-    ),
+    // Text(
+    //   'Index 1: 기간별 손익',
+    //   style: optionStyle,
+    // ),
+    // Text(
+    //   'Index 2: 실현 손익',
+    //   style: optionStyle,
+    // ),
     Text(
       'Index 2: 주식이야기 등록',
       style: optionStyle,
@@ -46,14 +46,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
             icon: Icon(Icons.home),
             label: '소유한 자산',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: '기간별 손익',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: '실현 손익',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.business),
+          //   label: '기간별 손익',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.school),
+          //   label: '실현 손익',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: '주식이야기 등록',
