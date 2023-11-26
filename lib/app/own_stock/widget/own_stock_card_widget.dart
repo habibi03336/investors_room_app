@@ -34,12 +34,13 @@ class OwnStockCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailOwnStockScreen(
-                ownStockAndPrice: ownStockAndPrice,
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailOwnStockScreen(
+              ownStockAndPrice: ownStockAndPrice,
+            ),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
