@@ -87,8 +87,6 @@ class OwnStockCardWidget extends StatelessWidget {
                         children: [
                           Text('${profit > 0 ? '+' : ''}$changeRate%',
                               style: TextStyle(fontSize: width / 6)),
-                          Text('(${profit > 0 ? '+' : ''}$profit원)',
-                              style: TextStyle(fontSize: width / 20))
                         ],
                       )
                     ],
