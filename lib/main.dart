@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_story_app/app/own_stock/screen/own_stock_screen.dart';
 import 'package:stock_story_app/navigation/botton_navigation.dart';
 
 void main() {
@@ -15,6 +16,6 @@ class StockStoryApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const BottomNavigation());
+        home: const OwnStockScreen());
   }
 }
