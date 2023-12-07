@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stock_story_app/app/stock_story_post/widget/price_select_pad_widget.dart';
+import 'package:stock_story_app/app/stock_story_post/screen/stock_story_write_story_screen.dart';
+import 'package:stock_story_app/app/stock_story_post/widget/price_selection_widget.dart';
+
+import '../widget/price_select_pad_widget.dart';
 
 class StockStoryPostPriceScreen extends StatefulWidget {
   const StockStoryPostPriceScreen({super.key});
@@ -14,34 +17,6 @@ class _StockStoryPostPriceScreenState extends State<StockStoryPostPriceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Row> selectedPrices = [];
-    int priorI = 0;
-    for (var i = 0; i < stockPrices.length; i += 1) {
-      if (stockPrices[priorI] != stockPrices[i]) {
-        selectedPrices.add(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text('${stockPrices[priorI]}'),
-              Text('${i - priorI}주'),
-            ],
-          ),
-        );
-        priorI = i;
-      }
-    }
-    if (stockPrices.isNotEmpty) {
-      selectedPrices.add(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('${stockPrices[priorI]}'),
-            Text('${stockPrices.length - priorI}주'),
-          ],
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('주식 이야기 등록'),
@@ -50,17 +25,18 @@ class _StockStoryPostPriceScreenState extends State<StockStoryPostPriceScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: selectedPrices),
+            child: PriceSelectionWidget(stockPrices: stockPrices),
           ),
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(5),
+            ),
             height: 300,
             child: PriceSelectPadWidget(
               onPriceSelect: (price) {
                 setState(() {
                   stockPrices.add(price);
-                  stockPrices.sort((a, b) => a - b);
                 });
               },
               centerPrice: 5000,
@@ -81,7 +57,7 @@ class _StockStoryPostPriceScreenState extends State<StockStoryPostPriceScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const StockStoryPostPriceScreen(),
+                builder: (context) => const StockStoryWriteStoryScreen(),
               ),
             );
           },
