@@ -75,6 +75,19 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "2ccd74480706e0a70a0e0dfa9543dede41bc11d0fe3b146a6ad7b7686f6b4407"
+      url: "https://pub.dev"
+    source: hosted
+    version: "11.1.4"
   js:
     dependency: transitive
     description:
@@ -91,6 +104,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -115,14 +136,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -131,14 +144,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
-  provider:
-    dependency: "direct main"
-    description:
-      name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -210,4 +215,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.3 <3.0.0"
-  flutter: ">=1.16.0"
+  flutter: ">=3.7.0"
