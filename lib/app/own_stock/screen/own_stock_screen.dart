@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stock_story_app/api/mock/stock_market_api.dart';
 import 'package:stock_story_app/api/mock/stock_story_api.dart';
 import 'package:stock_story_app/app/own_stock/widget/own_stock_card_widget.dart';
 import 'package:stock_story_app/app/own_stock/model/own_stock_and_market_price_model.dart';
-import 'package:stock_story_app/app/stock_story_post/screen/stock_story_post_screen.dart';
 
 class OwnStockScreen extends StatelessWidget {
   const OwnStockScreen({super.key});
@@ -33,12 +33,7 @@ class OwnStockScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const StockStoryPostScreen(),
-                ),
-              );
+              context.push('/post-stock-story');
             },
             icon: const Icon(Icons.add_circle_outline),
           ),
