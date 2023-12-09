@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stock_story_app/app/own_stock/screen/own_stock_screen.dart';
-
-import 'app/stock_story_post/model/stock_story_post_model.dart';
+import 'package:stock_story_app/app/stock_story_post/screen/stock_story_post_screen.dart';
 
 void main() {
   runApp(const StockStoryApp());
 }
+
+final GoRouter _router = GoRouter(routes: [
+  GoRoute(
+    path: '/',
+    builder: (context, state) => const OwnStockScreen(),
+  ),
+  GoRoute(
+    path: '/post-stock-story',
+    builder: (context, state) => const StockStoryPostScreen(),
+  )
+]);
 
 class StockStoryApp extends StatelessWidget {
   const StockStoryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => StockStoryPostModel(),
-      child: MaterialApp(
-        title: 'StockStoryApp',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const OwnStockScreen(),
-      ),
+    return MaterialApp.router(
+      routerConfig: _router,
+      title: 'StockStoryApp',
     );
   }
 }
