@@ -25,6 +25,21 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
     });
   }
 
+  bool nextStepAvailable(int step, StockStoryPostModel stockStoryPostModel) {
+    if (step == 0 &&
+        stockStoryPostModel.stockCode != '' &&
+        stockStoryPostModel.stockName != '') {
+      return true;
+    }
+    if (step == 1 &&
+        stockStoryPostModel.stockCode != '' &&
+        stockStoryPostModel.stockName != '' &&
+        stockStoryPostModel.stockPrices.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,15 +72,28 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
           color: Colors.black12,
         ),
         child: TextButton(
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(
+            Colors.black,
+          )),
           onPressed: () {
-            setState(() {
-              step += 1;
-            });
+            if (nextStepAvailable(step, stockStoryPostModel)) {
+              setState(() {
+                step += 1;
+              });
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('다음'),
+            children: [
+              Text(
+                '다음',
+                style: TextStyle(
+                  color: nextStepAvailable(step, stockStoryPostModel)
+                      ? Colors.white
+                      : Colors.grey,
+                ),
+              ),
             ],
           ),
         ),
