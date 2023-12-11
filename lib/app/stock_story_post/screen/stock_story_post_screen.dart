@@ -31,7 +31,7 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
         stockStoryPostModel.stockName != '') {
       return true;
     }
-    if (step == 1 &&
+    if ((step == 1 || step == 2) &&
         stockStoryPostModel.stockCode != '' &&
         stockStoryPostModel.stockName != '' &&
         stockStoryPostModel.stockPrices.isNotEmpty) {
@@ -77,17 +77,19 @@ class _StockStoryPostScreenState extends State<StockStoryPostScreen> {
             Colors.black,
           )),
           onPressed: () {
-            if (nextStepAvailable(step, stockStoryPostModel)) {
+            if (step != 2 && nextStepAvailable(step, stockStoryPostModel)) {
               setState(() {
                 step += 1;
               });
+            } else if (step == 2) {
+              print(stockStoryPostModel);
             }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '다음',
+                step != 2 ? '다음' : '등록하기',
                 style: TextStyle(
                   color: nextStepAvailable(step, stockStoryPostModel)
                       ? Colors.white
