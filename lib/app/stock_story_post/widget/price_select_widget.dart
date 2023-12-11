@@ -12,9 +12,15 @@ class PriceSelectWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Expanded(
-          child: PriceSelectionWidget(
-              stockPrices: stockStoryPostModel.stockPrices),
-        ),
+            child: PriceSelectionWidget(
+          stockPrices: stockStoryPostModel.stockPrices,
+          onPressArrowUp: (price) {
+            stockStoryPostModel.addStockPrice(price);
+          },
+          onPressArrowDown: (price) {
+            stockStoryPostModel.removeStockPrice(price);
+          },
+        )),
         Container(
           decoration: BoxDecoration(
             border: Border.all(),
@@ -78,9 +84,16 @@ class PriceSelectPadWidget extends StatelessWidget {
 }
 
 class PriceSelectionWidget extends StatelessWidget {
-  const PriceSelectionWidget({super.key, required this.stockPrices});
+  const PriceSelectionWidget({
+    super.key,
+    required this.stockPrices,
+    required this.onPressArrowUp,
+    required this.onPressArrowDown,
+  });
 
   final List<int> stockPrices;
+  final Function onPressArrowUp;
+  final Function onPressArrowDown;
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +103,7 @@ class PriceSelectionWidget extends StatelessWidget {
     int i = 0;
     while (stockPrices.isNotEmpty && i <= stockPrices.length) {
       if (i == stockPrices.length || stockPrices[priorI] != stockPrices[i]) {
+        var price = stockPrices[priorI];
         selectedPrices.add(
           Container(
             height: 36,
@@ -102,18 +116,36 @@ class PriceSelectionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${stockPrices[priorI]}원',
+                  '$price원',
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
                 ),
-                Text(
-                  '${i - priorI}주',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => onPressArrowUp(price),
+                      icon: const Icon(Icons.arrow_drop_up),
+                      padding: EdgeInsets.zero,
+                      iconSize: 36,
+                    ),
+                    Text(
+                      '${i - priorI}주',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => onPressArrowDown(price),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                      ),
+                      padding: EdgeInsets.zero,
+                      iconSize: 36,
+                    ),
+                  ],
                 ),
               ],
             ),
