@@ -14,7 +14,8 @@ class WriteStoryWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
-          TextField(
+          TextFormField(
+            initialValue: stockStoryPostModel.story,
             onChanged: (String text) {
               stockStoryPostModel.setStory(text);
             },

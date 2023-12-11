@@ -75,6 +75,9 @@ class TypeDateStockSelectWidget extends StatelessWidget {
             height: 40,
           ),
           Autocomplete<String>(
+            initialValue: TextEditingValue(
+              text: stockStoryPostModel.stockName,
+            ),
             fieldViewBuilder:
                 ((context, textEditingController, focusNode, onFieldSubmitted) {
               return TextFormField(
