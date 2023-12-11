@@ -14,6 +14,60 @@ class WriteStoryWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text('주식이름',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    stockStoryPostModel.stockName,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(stockStoryPostModel.isLong ? '평균매입가격' : '평균판매가격',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600)),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                      '${stockStoryPostModel.stockPrices.reduce((value, element) => value + element) ~/ stockStoryPostModel.stockPrices.length}원',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500))
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text('총투자금액',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 5),
+                  Text(
+                      '${stockStoryPostModel.stockPrices.reduce((value, element) => value + element)}원',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500))
+                ],
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
           TextFormField(
             initialValue: stockStoryPostModel.story,
             onChanged: (String text) {
