@@ -22,11 +22,10 @@ class PriceSelectWidget extends StatelessWidget {
           },
         )),
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(5),
+          decoration: const BoxDecoration(
+            border: Border(top: BorderSide()),
           ),
-          height: 300,
+          height: 400,
           child: PriceSelectPadWidget(
             onPriceSelect: (price) {
               stockStoryPostModel.addStockPrice(price);
@@ -34,9 +33,6 @@ class PriceSelectWidget extends StatelessWidget {
             centerPrice: 5000,
           ),
         ),
-        const SizedBox(
-          height: 40,
-        )
       ],
     );
   }
@@ -190,7 +186,12 @@ class PadTileWidget extends StatelessWidget {
             onPriceSelect(price);
           },
           child: Center(
-            child: Text('$price'),
+            child: Text(
+              '$price',
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
         ),
       ),

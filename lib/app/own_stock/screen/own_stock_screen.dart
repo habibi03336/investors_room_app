@@ -29,13 +29,32 @@ class OwnStockScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('소유한 주식'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+            Text(
+              '장투는 맛있다',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
         actions: [
-          IconButton(
-            onPressed: () {
-              context.push('/post-stock-story');
-            },
-            icon: const Icon(Icons.add_circle_outline),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: IconButton(
+              onPressed: () {
+                context.push('/post-stock-story');
+              },
+              icon: const Icon(
+                Icons.add_circle_outline,
+              ),
+            ),
           ),
         ],
       ),

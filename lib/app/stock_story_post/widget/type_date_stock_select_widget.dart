@@ -16,11 +16,39 @@ class TypeDateStockSelectWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 10,
+            height: 20,
+          ),
+          TextField(
+            controller: TextEditingController(
+                text: stockStoryPostModel.dt.toString().substring(0, 10)),
+            decoration: const InputDecoration(
+                icon: Icon(Icons.calendar_today), //icon of text field
+                labelText: "주식 구매/판매 일자" //label text of field
+                ),
+            readOnly: true, // when true user cannot edit text
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(), //get today's date
+                firstDate: DateTime(
+                    2000), //DateTime.now() - not to allow to choose before today.
+                lastDate: DateTime.now(),
+              );
+              if (pickedDate != null && pickedDate != stockStoryPostModel.dt) {
+                stockStoryPostModel.setDt(pickedDate);
+              }
+            },
+          ),
+          const SizedBox(
+            height: 40,
           ),
           LayoutBuilder(
             builder: (context, constraints) {
               return ToggleButtons(
+                color: Colors.black,
+                selectedColor: Colors.black,
+                selectedBorderColor: Colors.black,
+                fillColor: Colors.black26,
                 constraints: BoxConstraints.expand(
                     width: (constraints.maxWidth - 3) / 2),
                 isSelected: [
@@ -45,30 +73,6 @@ class TypeDateStockSelectWidget extends StatelessWidget {
                   }
                 },
               );
-            },
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          TextField(
-            controller: TextEditingController(
-                text: stockStoryPostModel.dt.toString().substring(0, 10)),
-            decoration: const InputDecoration(
-                icon: Icon(Icons.calendar_today), //icon of text field
-                labelText: "주식 구매/판매 일자" //label text of field
-                ),
-            readOnly: true, // when true user cannot edit text
-            onTap: () async {
-              DateTime? pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(), //get today's date
-                firstDate: DateTime(
-                    2000), //DateTime.now() - not to allow to choose before today.
-                lastDate: DateTime.now(),
-              );
-              if (pickedDate != null && pickedDate != stockStoryPostModel.dt) {
-                stockStoryPostModel.setDt(pickedDate);
-              }
             },
           ),
           const SizedBox(
