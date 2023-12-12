@@ -1,4 +1,5 @@
 class StockStoryModel {
+  final String stockName;
   final String stockCode;
   final List<int> stockPrices;
   final DateTime dt;
@@ -11,7 +12,8 @@ class StockStoryModel {
   }
 
   StockStoryModel.fromJson(Map<String, dynamic> json)
-      : stockCode = json['stockCode'],
+      : stockName = json['stockName'],
+        stockCode = json['stockCode'],
         stockPrices = json['stockPrices'],
         isLong = json['isLong'],
         dt = StockStoryModel.parseDtStr(json['dt']),
