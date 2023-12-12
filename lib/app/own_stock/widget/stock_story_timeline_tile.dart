@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class StockStoryTimelineTile extends StatelessWidget {
@@ -10,6 +11,7 @@ class StockStoryTimelineTile extends StatelessWidget {
     required this.story,
     required this.dt,
     required this.prices,
+    required this.storyId,
   });
 
   final bool isFirst;
@@ -18,6 +20,7 @@ class StockStoryTimelineTile extends StatelessWidget {
   final String story;
   final List<int> prices;
   final DateTime dt;
+  final int storyId;
 
   @override
   Widget build(BuildContext context) {
@@ -36,37 +39,42 @@ class StockStoryTimelineTile extends StatelessWidget {
             color: Colors.black12,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: SizedBox(
-            height: 100,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  dt.toString().substring(0, 10),
-                  style: const TextStyle(fontSize: 12),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                isLong
-                    ? Text(
-                        '${prices.length}주 구매, 평균매입금액: ${prices.reduce((value, element) => value + element) ~/ prices.length}원',
-                        style: const TextStyle(fontSize: 12),
-                      )
-                    : Text(
-                        '${prices.length}주 판매, 평균매각금액: ${prices.reduce((value, element) => value + element) ~/ prices.length}원',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Expanded(
-                  child: Text(
-                    overflow: TextOverflow.fade,
-                    story,
+          child: GestureDetector(
+            onTap: () {
+              context.push('/stock-story/$storyId');
+            },
+            child: SizedBox(
+              height: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    dt.toString().substring(0, 10),
+                    style: const TextStyle(fontSize: 12),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  isLong
+                      ? Text(
+                          '${prices.length}주 구매, 평균매입금액: ${prices.reduce((value, element) => value + element) ~/ prices.length}원',
+                          style: const TextStyle(fontSize: 12),
+                        )
+                      : Text(
+                          '${prices.length}주 판매, 평균매각금액: ${prices.reduce((value, element) => value + element) ~/ prices.length}원',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      overflow: TextOverflow.fade,
+                      story,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

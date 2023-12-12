@@ -20,6 +20,7 @@ class StockStoryTimelineWidget extends StatelessWidget {
           story: stockStories[i].story,
           prices: stockStories[i].stockPrices,
           dt: stockStories[i].dt,
+          storyId: 1,
         ),
       );
     }
