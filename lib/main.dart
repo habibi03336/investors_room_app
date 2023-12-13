@@ -14,9 +14,23 @@ final GoRouter _router = GoRouter(routes: [
     builder: (context, state) => const OwnStockScreen(),
   ),
   GoRoute(
-    path: '/post-stock-story',
-    builder: (context, state) => const StockStoryPostScreen(),
-  ),
+      path: '/post-stock-story',
+      // builder: (context, state) => const StockStoryPostScreen(),
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const StockStoryPostScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: const Offset(0, 0),
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      }),
   GoRoute(
     path: '/stock-story/:id',
     builder: (context, state) {
